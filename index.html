@@ -834,32 +834,187 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            nav {
+                display: flex;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 0;
+                font-size: 0.9rem;
+            }
+
+            .welcome-section {
+                padding: 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .view-projects-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                padding: 1rem;
+            }
+
+            .project-item {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+
+            .project-info-preview h3 {
+                font-size: 1.4rem;
+            }
+
+            .project-meta {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .project-content {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                overflow-y: auto;
+            }
+
+            .preview-panel {
+                height: 50vh;
+            }
+
+            .files-panel {
+                height: auto;
+            }
+
+            .project-content-wrapper {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .preview-header h3 {
+                font-size: 1.4rem;
+            }
+
             .contact-section {
-                padding: 4rem 1.5rem;
-            }
-
-            .contact-form {
-                padding: 2rem;
-            }
-
-            .contact-link {
-                width: 50px;
-                height: 50px;
-            }
-
-            .contact-link img {
-                width: 24px;
-                height: 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .contact-section {
-                padding: 3rem 1rem;
+                padding: 4rem 1rem;
             }
 
             .contact-form {
                 padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+                padding: 0.8rem;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .view-projects-btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .project-item {
+                padding: 1rem;
+            }
+
+            .project-info-preview h3 {
+                font-size: 1.2rem;
+            }
+
+            .project-info-preview p {
+                font-size: 0.9rem;
+            }
+
+            .project-meta {
+                font-size: 0.8rem;
+            }
+
+            .preview-header {
+                padding: 1rem;
+            }
+
+            .preview-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .back-button, .fullscreen-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .files-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .download-all-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .file-item {
+                padding: 0.8rem;
+            }
+
+            .file-name {
+                font-size: 0.8rem;
+            }
+
+            .file-type {
+                font-size: 0.7rem;
+            }
+
+            .contact-form {
+                padding: 1rem;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .submit-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .contact-info {
+                gap: 1rem;
             }
 
             .contact-link {
@@ -870,6 +1025,33 @@
             .contact-link img {
                 width: 20px;
                 height: 20px;
+            }
+        }
+
+        /* Add landscape mode optimization */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                padding: 0.5rem 1rem;
+            }
+
+            .welcome-section {
+                padding: 4rem 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-panel {
+                height: 70vh;
+            }
+
+            .contact-section {
+                padding: 3rem 1rem;
             }
         }
     </style>
