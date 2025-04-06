@@ -6,6 +6,47 @@
     <title>Hamza Dodhy - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Loading screen styles - ultra minimalistic */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), visibility 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .loading-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0.8;
+            position: relative;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.4; }
+        }
+        
+        .main-content {
+            opacity: 0;
+            transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        
+        .main-content.loaded {
+            opacity: 1;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -38,6 +79,7 @@
             font-weight: 600;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -78,6 +120,29 @@
             transform: scaleX(1);
         }
 
+        .cv-download-btn {
+            background: linear-gradient(135deg, #e6e6e6, #b3b3b3);
+            color: #0a0a0a;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .cv-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, #f2f2f2, #cccccc);
+        }
+
         .welcome-section {
             height: 100vh;
             display: flex;
@@ -98,6 +163,7 @@
             margin-bottom: 1.5rem;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -141,6 +207,7 @@
             margin-bottom: 3rem;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -199,6 +266,7 @@
             margin-bottom: 0.5rem;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -236,6 +304,7 @@
             text-align: center;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -324,6 +393,7 @@
             margin: 0;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -493,6 +563,34 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            position: relative;
+        }
+        
+        .file-download-btn {
+            position: absolute;
+            right: 15px;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .file-download-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .file-download-btn img {
+            width: 14px;
+            height: 14px;
         }
 
         .file-item:hover {
@@ -503,6 +601,77 @@
         .file-item.active {
             background: rgba(255, 255, 255, 0.15);
             border-left: 3px solid #fff;
+        }
+        
+        .file-download-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.7;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        
+        .file-download-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .file-download-btn img {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Mobile responsive styles for file items and download buttons */
+        @media (max-width: 768px) {
+            .file-item {
+                padding: 0.8rem;
+                position: relative;
+            }
+            
+            .file-info {
+                max-width: 60%;
+                overflow: hidden;
+            }
+            
+            .file-name {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+            }
+            
+            .file-download-btn {
+                padding: 4px 8px;
+                right: 10px;
+                font-size: 0.7rem;
+            }
+            
+            .file-download-btn span {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .file-info {
+                max-width: 50%;
+            }
+            
+            .file-download-btn {
+                padding: 4px;
+                right: 5px;
+            }
         }
 
         .file-icon {
@@ -665,6 +834,7 @@
             text-align: center;
             background: linear-gradient(45deg, #fff, #666);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -1057,14 +1227,22 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Hamza Dodhy</h1>
-        <nav>
-            <a href="#welcome">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text">AWAITING GREATNESS</div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Hamza Dodhy</h1>
+            <nav>
+                <a href="#welcome">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <button onclick="downloadCV()" class="cv-download-btn">Download My Resumè!</button>
+            </nav>
+        </header>
 
     <main>
         <section id="welcome" class="welcome-section">
@@ -1273,6 +1451,7 @@
     <footer>
         <p>&copy; 2024 Hamza Dodhy. All rights reserved.</p>
     </footer>
+    </div> <!-- End of main-content -->
 
     <!-- Add PDF.js script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -1292,6 +1471,16 @@
             document.getElementById('projects').scrollIntoView({
                 behavior: 'smooth'
             });
+        }
+        
+        // Function to download CV
+        function downloadCV() {
+            const link = document.createElement('a');
+            link.href = "Hamza Dodhy's CV.docx";
+            link.download = "Hamza Dodhy's CV.docx";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Project data
@@ -1543,6 +1732,8 @@
                 const files = projectFiles[title] || [];
                 const previewWrapper = document.createElement('div');
                 previewWrapper.className = 'project-content-wrapper';
+                // Prevent body scrolling when overlay is open
+                document.body.style.overflow = 'hidden';
                 
                 previewWrapper.innerHTML = `
                     <div class="project-content">
@@ -1617,6 +1808,8 @@
                     previewWrapper.style.opacity = '0';
                     setTimeout(() => {
                         previewWrapper.remove();
+                        // Re-enable scrolling when project overlay is closed
+                        document.body.style.overflow = 'auto';
                     }, 300);
                 });
 
@@ -2039,6 +2232,8 @@
             viewer.style.opacity = '0';
             setTimeout(() => {
                 viewer.style.display = 'none';
+                // Re-enable body scrolling when overlay is closed
+                document.body.style.overflow = 'auto';
             }, 300);
         }
 
@@ -2051,6 +2246,42 @@
             showFullscreen(currentProjectName, nextFile.name);
         }
 
+        // Function to download a single file
+        async function downloadSingleFile(projectName, fileName, event) {
+            // Prevent the click from triggering the parent element's click event
+            if (event) {
+                event.stopPropagation();
+            }
+            
+            try {
+                // Show loading message
+                showMessage('Preparing download...', 'info');
+                
+                // Fetch the file
+                const response = await fetch(`projects/${projectName}/${fileName}`);
+                if (!response.ok) throw new Error('File not found');
+                
+                const blob = await response.blob();
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Clean up
+                URL.revokeObjectURL(link.href);
+                
+                // Show success message
+                showMessage('Download started!', 'success');
+            } catch (error) {
+                console.error('Error downloading file:', error);
+                showMessage('Error downloading file. Please try again.', 'error');
+            }
+        }
+        
         async function downloadAllFiles(projectName) {
             const files = projectFiles[projectName] || [];
             if (files.length === 0) return;
@@ -2194,6 +2425,153 @@
 
         window.addEventListener('scroll', updateActiveNav);
         updateActiveNav();
+        
+        // Function to download a single file
+        async function downloadSingleFile(projectName, fileName, event) {
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            
+            try {
+                console.log(`Downloading file: ${fileName} from project: ${projectName}`);
+                
+                // Create a direct download link to the file
+                const link = document.createElement('a');
+                link.href = `projects/${projectName}/${fileName}`;
+                link.download = fileName;
+                link.target = '_blank'; // Open in new tab as fallback
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Show success message
+                showMessage('Download started!', 'success');
+            } catch (error) {
+                console.error('Error downloading file:', error);
+                showMessage('Error downloading file. Please try again.', 'error');
+            }
+        }
+        
+        // Modify the file item template directly
+        const originalPreviewFile = previewFile;
+        window.previewFile = function(projectName, fileName, element) {
+            // Call the original function
+            originalPreviewFile(projectName, fileName, element);
+            
+            // Add download buttons to all file items after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.file-item').forEach(fileItem => {
+                    // Skip if already has a download button
+                    if (fileItem.querySelector('.file-download-btn')) return;
+                    
+                    // Get the file name
+                    const fileNameElement = fileItem.querySelector('.file-name');
+                    if (!fileNameElement) return;
+                    const fileName = fileNameElement.textContent;
+                    
+                    // Create the download button with inline styles
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.className = 'file-download-btn';
+                    downloadBtn.innerHTML = '<img src="Icons/download white.png" alt="Download" style="width: 14px; height: 14px; margin-right: 5px;"><span>Download</span>';
+                    downloadBtn.style.cssText = 'position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; border-radius: 4px; padding: 5px 10px; color: white; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; z-index: 100; opacity: 0.8; transition: all 0.2s ease;';
+                    
+                    // Add hover effect with inline styles
+                    downloadBtn.onmouseover = function() {
+                        this.style.opacity = '1';
+                        this.style.background = 'rgba(255, 255, 255, 0.2)';
+                    };
+                    downloadBtn.onmouseout = function() {
+                        this.style.opacity = '0.8';
+                        this.style.background = 'rgba(255, 255, 255, 0.1)';
+                    };
+                    
+                    // Add click handler
+                    downloadBtn.onclick = function(event) {
+                        downloadSingleFile(projectName, fileName, event);
+                    };
+                    
+                    // Ensure the file item has relative positioning
+                    fileItem.style.position = 'relative';
+                    
+                    // Add the button to the file item
+                    fileItem.appendChild(downloadBtn);
+                });
+            }, 100);
+        };
+        
+        // Also add a direct approach for immediate execution
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a mutation observer to detect when new file items are added
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length) {
+                        // Check if any file items were added
+                        const fileItems = document.querySelectorAll('.file-item:not([data-has-download-btn])');
+                        if (fileItems.length) {
+                            fileItems.forEach(function(fileItem) {
+                                // Mark this file item as processed
+                                fileItem.setAttribute('data-has-download-btn', 'true');
+                                
+                                // Get the project name from the project title
+                                const projectTitle = document.querySelector('.project-title');
+                                const projectName = projectTitle ? projectTitle.textContent : null;
+                                if (!projectName) return;
+                                
+                                // Get the file name
+                                const fileNameElement = fileItem.querySelector('.file-name');
+                                if (!fileNameElement) return;
+                                const fileName = fileNameElement.textContent;
+                                
+                                // Create the download button with inline styles
+                                const downloadBtn = document.createElement('button');
+                                downloadBtn.className = 'file-download-btn';
+                                downloadBtn.innerHTML = '<img src="Icons/download white.png" alt="Download" style="width: 14px; height: 14px; margin-right: 5px;"><span>Download</span>';
+                                downloadBtn.style.cssText = 'position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: none; border-radius: 4px; padding: 5px 10px; color: white; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; z-index: 100; opacity: 0.8; transition: all 0.2s ease;';
+                                
+                                // Add hover effect with inline styles
+                                downloadBtn.onmouseover = function() {
+                                    this.style.opacity = '1';
+                                    this.style.background = 'rgba(255, 255, 255, 0.2)';
+                                };
+                                downloadBtn.onmouseout = function() {
+                                    this.style.opacity = '0.8';
+                                    this.style.background = 'rgba(255, 255, 255, 0.1)';
+                                };
+                                
+                                // Add click handler
+                                downloadBtn.onclick = function(event) {
+                                    downloadSingleFile(projectName, fileName, event);
+                                };
+                                
+                                // Ensure the file item has relative positioning
+                                fileItem.style.position = 'relative';
+                                
+                                // Add the button to the file item
+                                fileItem.appendChild(downloadBtn);
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Start observing the document body for changes
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+        
+        // Loading screen functionality - ultra minimalistic
+        window.addEventListener('load', function() {
+            // Show loading screen
+            const loadingScreen = document.querySelector('.loading-screen');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Hide loading screen after 2 seconds with smooth transition
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+                mainContent.classList.add('loaded');
+            }, 2000);
+        });
 
         // Smooth scroll for navigation links
         document.querySelectorAll('nav a').forEach(link => {
