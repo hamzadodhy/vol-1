@@ -225,6 +225,17 @@
             letter-spacing: 2px;
             font-weight: 500;
         }
+        
+        /* Make the View Projects button smaller only on phone screens */
+        @media (max-width: 480px) {
+            .view-projects-btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.9rem;
+                border-radius: 25px;
+                letter-spacing: 1.5px;
+                border-width: 1.5px;
+            }
+        }
 
         .view-projects-btn:hover {
             background: #fff;
@@ -465,7 +476,7 @@
             height: 100%;
             padding: 2rem;
             max-height: 90vh;
-            overflow: auto;
+            overflow: hidden;
         }
         
         @media (max-width: 768px) {
@@ -489,6 +500,12 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+        }
+        
+        .preview-viewer {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
         }
 
         .preview-header {
@@ -547,6 +564,7 @@
             gap: 1rem;
             height: 100%;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
             padding-right: 0.5rem;
         }
 
@@ -894,8 +912,6 @@
             height: 90vh;
             background: rgba(0, 0, 0, 0.95);
             z-index: 1500;
-            -webkit-overflow-scrolling: touch; /* Enables momentum scrolling on iOS */
-            overflow-y: auto;
             display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -1942,10 +1958,12 @@
                 const previewWrapper = document.createElement('div');
                 previewWrapper.className = 'project-content-wrapper';
                 // Prevent body scrolling when overlay is open
+                const scrollY = window.scrollY;
                 document.body.style.overflow = 'hidden';
                 document.body.style.position = 'fixed';
                 document.body.style.width = '100%';
-                document.body.style.top = `-${window.scrollY}px`;
+                document.body.style.top = `-${scrollY}px`;
+                document.body.setAttribute('data-scroll-position', scrollY);
                 
                 previewWrapper.innerHTML = `
                     <div class="project-content">
@@ -2021,7 +2039,13 @@
                     setTimeout(() => {
                         previewWrapper.remove();
                         // Re-enable scrolling when project overlay is closed
-                        document.body.style.overflow = 'auto';
+                        document.body.style.overflow = '';
+                        document.body.style.position = '';
+                        document.body.style.width = '';
+                        document.body.style.top = '';
+                        // Restore scroll position
+                        const scrollY = parseInt(document.body.getAttribute('data-scroll-position') || '0');
+                        window.scrollTo(0, scrollY);
                     }, 300);
                 });
 
